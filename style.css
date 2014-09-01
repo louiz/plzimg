@@ -1,0 +1,87 @@
+html { font-size: 92%; }
+
+body {
+    position: relative;
+    font-family: Helvetica, Arial, sans-serif;
+    padding: 0 30px;
+    /* background: #16060d; */
+    /* color: #f5c4d9; */
+}
+
+#nav {
+    position:fixed;
+    top: 100px;
+    left: 40px;
+    width: 200px;
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+h1, h2 {
+  font-size: 420%;
+  margin: 0 0 0.1em;
+  font-family: 'ChunkFiveRegular', serif;
+  font-weight: normal;
+  text-shadow: 1px 1px 10px rgba(0,0,0,0.25);
+}
+
+h1 {
+    font-weight: normal;
+    text-decoration: none;
+}
+
+h2 {
+    /* color: #c83675; */
+    font-size: 200%;
+}
+
+#header {
+    /* background: #F0F0F0; */
+    /* text-align: center; */
+}
+
+#mp h1 {
+    display: none;
+}
+
+#mp h2{
+    font-family: Helvetica,Arial,Tahoma,Sans-Serif;
+    font-size: 100%;
+    font-weight: bold;
+}
+
+code {
+    font-weight: bold;
+}
+
+em {
+    text-decoration: underline;
+    font-style: normal;
+}
+
+#wrap {
+  text-align: center;
+  max-width: 100%;
+  min-width: 20em;
+  margin: 0 auto;
+  padding: 30px 0 0;
+}
+
+a {
+    text-decoration: none;
+    cursor: pointer;
+    color: #080808;
+    font-weight: bold;
+}
+
+a:hover, a:focus {
+    color: #020202;
+    text-decoration: none;
+}
+
+a:focus { outline: 1px dotted; }
+
+a:visited {  }
+
+a *, button * { cursor: pointer; }
