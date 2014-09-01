@@ -1,0 +1,16 @@
+<html>
+  <head>
+    <link rel="stylesheet" href="style.css" type="text/css" />
+    <link rel="stylesheet" href="./chunkfive.css" type="text/css" />
+    <title>plzimg - {{ title }}</title>
+  </head>
+  <body>
+    <div id="wrap">
+      <h1>Plzimg – {{ title }}</h1>
+      <div id="header">
+        <a href="/">Home</a> — <a href="/about">About</a>
+      </div>
+      {% block content %}{% endblock %}
+    </div>
+  </body>
+</html>
