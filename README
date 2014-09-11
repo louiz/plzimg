@@ -1,0 +1,94 @@
+       _     _
+ _ __ | |___(_)_ __ ___   __ _
+| '_ \| |_  / | '_ ` _ \ / _` |
+| |_) | |/ /| | | | | | | (_| |
+| .__/|_/___|_|_| |_| |_|\__, |
+|_|                      |___/
+
+Homepage:       http://dev.louiz.org/projects/plzimg
+
+Plzimg is a very simple and lightweight web application, without any
+database, that lets users upload their images. It is developed in python3
+and uses the Flask framework.
+
+It doesn't provide any way to search for uploaded images, or even to list
+them.  It is not possible to remove, tag or describe the images.  Just
+upload the image, use the URL somewhere, do not lose it, and that’s it.
+
+
+================
+    Install
+================
+You need python3-flask and python3-pillow (to resize the uploaded images).
+Simply create two directories, one for each size of image:
+o/ for the original images
+s/ for the resized images
+
+You can test the application by running
+
+$ python3 app.py
+
+This will start a test server running on port 5000, but it is not suitable
+for production.
+If you want to deploy it on your web server, please refer to one of the
+methods described on http://flask.pocoo.org/docs/deploying/
+
+Here is, as an example, my own configuration, using uwsgi and nginx.  As an
+additional feature, it provides compatibility with the URLs of the pix
+software that can be found at http://pix.toile-libre.org/
+It requires an additional directory, m/, that is filled with the smallest
+images (used for the thumbs).
+
+$ cat /etc/uwsgi.d/pix.ini
+[uwsgi]
+socket = 127.0.0.1:3032
+master = true
+plugin = python3
+chdir = /home/louiz/plzimg
+module = app:app
+processes = 4
+
+$ cat /etc/nginx/sites/pix.louiz.org.conf
+server
+{
+        listen          80;
+        server_name     pix.louiz.org;
+        client_max_body_size 100m;
+
+        location @pix {
+            include        uwsgi_params;
+            uwsgi_pass     127.0.0.1:3032;
+        }
+
+        location / {
+
+            # Compatibility with pix.toile-libre.org URLs
+            rewrite ^/upload/original/(.*)$ /o/$1 permanent;
+            rewrite ^/upload/img/(.*)$ /s/$1 permanent;
+            rewrite ^/upload/thumb/(.*)$ /m/$1 permanent;
+            rewrite ^/\?img=(.*)$ /$1 permanent;
+
+            root /home/louiz/plzimg/;
+
+            try_files   $uri @pix;
+        }
+}
+
+================
+    Authors
+================
+Florent Le Coz (louiz’) <louiz@louiz.org>
+
+=================
+ Contact/Support
+=================
+Report a bug:        http://dev.louiz.org/projects/plzimg/issues/new
+
+=================
+    Licence
+=================
+Plzimg is Free Software.
+(learn more: http://www.gnu.org/philosophy/free-sw.html)
+
+Plzimg is released under the zlib license.
+Please read the COPYING file for details.
